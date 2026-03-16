@@ -1,0 +1,9 @@
+feature,importance
+treatment_regimen,0.28
+is_plhiv,0.22
+is_child_under15,0.14
+tb_type,0.08
+is_high_risk_setting,0.04
+treatment_facility_level,0.02
+dots_method,0.01
+state,0.0
