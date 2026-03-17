@@ -1,91 +1,60 @@
-# KNCV Nigeria TB Patient Journey Analysis
+# KNCV Nigeria TB Analysis
 
-An end-to-end data analysis project examining the TB patient journey across KNCV Nigeria's program states — from screening to treatment outcome, with predictive modeling.
-
----
+End-to-end TB data analysis project examining the patient journey across KNCV Nigeria's program states — from screening to treatment outcome. Includes data generation, cleaning, exploratory data analysis, statistical testing, predictive modeling, and a Power BI dashboard.
 
 ## Project Overview
+**Analysis Question:** From screening to success — tracking the TB patient journey across KNCV Nigeria's program states, and understanding what predicts treatment outcome.
 
-This project simulates and analyzes a 60,000-row TB program dataset modeled on KNCV Nigeria's real operations across 20 Nigerian states (2020–2024). It follows the full data science pipeline: data generation, cleaning, exploratory analysis, statistical testing, and machine learning.
-
-**Core Analysis Question:**
-> "From screening to success — what drives TB treatment outcomes across KNCV Nigeria's program states?"
-
----
+**Data:** Synthetic dataset of 60,000 TB patient records (2020–2024) modeled on real Nigerian TB burden data and KNCV Nigeria's program structure.
 
 ## Repository Structure
-
-| File | Description |
-|------|-------------|
-| `generate_kncv_tb_data.py` | Python script to generate the synthetic dataset |
-| `kncv_nigeria_tb_data_raw.csv` | Raw generated dataset (60,000 rows, 26 columns) |
-| `kncv_nigeria_tb_data_cleaned.csv` | Cleaned dataset after processing |
-| `kncv_tb_cleaning_analysis.ipynb` | Data cleaning notebook |
-| `kncv_tb_eda.ipynb` | Exploratory data analysis (9 insights) |
-| `kncv_tb_statistical_analysis.ipynb` | Statistical tests (Chi-square, Kruskal-Wallis) |
-| `kncv_tb_prediction.ipynb` | Logistic regression prediction model |
-
----
-
-## Dataset
-
-- **Rows:** 60,000 patients
-- **Columns:** 26 (+ 1 derived)
-- **Date range:** 2020–2024
-- **States:** 20 Nigerian states weighted by real TB burden
-- **TB Types:** DS-TB, DR-TB, TB/HIV
-
-### Patient Journey Funnel
 ```
-Screened → Presumptive TB → Diagnosed → Confirmed → Treatment → Outcome
+kncv-nigeria-tb-analysis/
+├── data/
+│   ├── raw/
+│   │   └── kncv_nigeria_tb_data_raw.csv
+│   └── processed/
+│       ├── kncv_nigeria_tb_data_cleaned.csv
+│       └── feature_importance.csv
+├── notebooks/
+│   ├── 01_kncv_tb_cleaning_analysis.ipynb
+│   ├── 02_kncv_tb_eda.ipynb
+│   ├── 03_kncv_tb_statistical_analysis.ipynb
+│   └── 04_kncv_tb_prediction.ipynb
+├── scripts/
+│   └── generate_kncv_tb_data.py
+└── images/
+    ├── page1.png
+    └── page2.png
 ```
-Patients who are not presumptive, or are ruled out after testing, have null treatment columns by design — this reflects the real program data structure.
-
-### Intentional Data Quality Issues
-| Column | Issue |
-|--------|-------|
-| `age` | Impossible entries (999, 0), missing values |
-| `referred_by` | Inconsistent free-text (e.g. "CV", "comm vol", "Community Volunteer") |
-| `lost_to_followup_reason` | Inconsistent capitalization and abbreviations |
-
----
 
 ## Key Findings
+- Lagos, Kano and Oyo account for the highest TB burden among KNCV program states
+- TB case notifications dropped in 2020 due to COVID-19 disruption and recovered by 2023
+- DR-TB patients have significantly worse treatment outcomes than DS-TB patients
+- PLHIV have lower treatment success rates (47.11%) compared to HIV-negative patients
+- Relocation is the leading reason for loss to follow-up
+- No state met the WHO 90% treatment success rate target
 
-### EDA
-- **Lagos** recorded the highest TB case notifications, consistent with Nigeria's known burden distribution
-- **Community Screening** is the leading case finding method
-- TB case notifications **dropped significantly in 2020** due to COVID-19 disruption, recovering steadily through 2022–2024
-- **DR-TB patients** have the worst treatment outcomes
-- **PLHIV** have significantly lower success rates than HIV-negative patients
-- **Relocation** is the leading reason for loss to follow-up
-- No state met the **WHO 90% treatment success rate target**
-
-### Statistical Analysis
-- Significant relationship between TB type and treatment outcome (Chi-square, p < 0.05)
-- Significant relationship between PLHIV status and treatment outcome (Chi-square, p < 0.05)
-- Significant difference in treatment duration across TB types (Kruskal-Wallis, p < 0.05)
-
-### Prediction Model
-- **Model:** Logistic Regression
-- **Accuracy:** 59.5% | **ROC-AUC:** 0.58
+## Prediction Model
+Logistic Regression model trained on 35,884 confirmed TB patients to predict treatment success.
+- **Accuracy:** 59.5%
+- **ROC-AUC:** 0.58
 - **Top predictors:** Treatment regimen, PLHIV status, child under 15
-- Class imbalance addressed using `class_weight='balanced'`
-- Moderate performance reflects synthetic data limitations — real-world models would benefit from clinical features such as missed doses and weight progression
 
----
+## Dashboard
+Built in Power BI with 2 pages:
+- **Page 1:** Patient Journey Overview — KPIs, case notifications trend, case finding methods, TB type distribution, geographic map
+- **Page 2:** Outcomes & Prediction Insights — Treatment outcomes by TB type, success rate by state, PLHIV impact, LTFU reasons, ML model feature importance and performance
+
+## Dashboard Preview
+![Page 1](images/page1.png)
+![Page 2](images/page2.png)
 
 ## Tools Used
-- Python (Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, SciPy)
-- Power Query
+- Python (pandas, numpy, matplotlib, seaborn, scikit-learn)
 - Power BI
-- Git & GitHub
-
----
-
-## About KNCV Nigeria
-KNCV Nigeria is a national NGO dedicated to fighting Tuberculosis across Nigeria, operating in 20 states with funding from USAID, Global Fund, and other partners.
-
----
+- Power Query
+- Git/GitHub
 
 *Synthetic dataset generated for portfolio purposes. Modeled on real program structure and Nigerian TB burden data.*
