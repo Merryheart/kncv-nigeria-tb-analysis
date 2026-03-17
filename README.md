@@ -48,8 +48,8 @@ Built in Power BI with 2 pages:
 - **Page 2:** Outcomes & Prediction Insights — Treatment outcomes by TB type, success rate by state, PLHIV impact, LTFU reasons, ML model feature importance and performance
 
 ## Dashboard Preview
-![Page 1](images/page1.png)
-![Page 2](images/page2.png)
+![page 1](images/page1.png)
+![page 2](images/page2.png)
 
 ## Tools Used
 - Python (pandas, numpy, matplotlib, seaborn, scikit-learn)
